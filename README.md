@@ -1,14 +1,15 @@
-Kinsky: Clojure Kafka client library
+Kinsky: Clojure Mapr Streams/Kafka client library
 ====================================
+This is from [pyr/kinsky](http://https://github.com/pyr/kinsky)
 
 [![Build Status](https://secure.travis-ci.org/pyr/kinsky.png)](http://travis-ci.org/pyr/kinsky)
 
 Kinsky is a *somewhat* opinionated client library
-for [Apache Kafka](http://kakfa.apache.org) in Clojure.
+for [Mapr Stream Streams](http://maprdocs.mapr.com/51/MapR_Streams/mapr_streams.html) in Clojure.
 
 Kinsky provides the following:
 
-- Kakfa 0.9.0.x compatibility
+- MapR Streams/Kakfa 0.9.0.x compatibility
 - Adequate data representation of Kafka types.
 - Default serializer and deserializer implementations such as
   **JSON**, **EDN** and a **keyword** serializer for keys.
