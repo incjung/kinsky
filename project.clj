@@ -9,6 +9,7 @@
   :dependencies [[org.clojure/clojure            "1.8.0"]
                  [org.clojure/core.async         "0.2.385"]
                  [org.apache.kafka/kafka-clients "0.9.0.0-mapr-1607"]
+                 [com.mapr.streams/mapr-streams  "5.2.0-mapr"]
                  [cheshire                       "5.6.3"]]
   :repositories [["java.net" "http://download.java.net/maven/2"]
                  ["mapr-releases" {:url "http://repository.mapr.com/maven"

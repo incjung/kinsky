@@ -19,12 +19,37 @@ Kinsky provides the following:
 ## Usage
 
 ```clojure
-   [[spootnik/kinsky "0.1.15"]]
+
 ```
 
 ## Documentation
 
 * [API Documentation](http://pyr.github.io/kinsky)
+
+## MapR Streams
+MapR Streams brings integrated publish/subscribe messaging to the MapR Converged Data Platform.
+
+Producer applications can publish messages to topics, which are logical collections of messages, that are managed by MapR Streams. Consumer applications can then read those messages at their own pace. All messages published to MapR Streams are persisted, allowing future consumers to “catch-up” on processing, and analytics applications to process historical data.
+
+* [MapR Stream Documentation](http://maprdocs.mapr.com/51/MapR_Streams/getting_started_with_mapr_streams.html)
+
+### Create a Stream 
+```bash 
+maprcli stream create -path /sample-stream
+maprcli stream edit -path /sample-stream -produceperm p -consumeperm p -topicperm p
+maprcli stream topic create -path /sample-stream -topic events
+```
+The two additional parameters grant security permissions. By default, these permissions are granted to the user ID that ran the maprcli stream create command.
+-consumeperm
+Grants permission to read messages from topics that are in the stream.
+-produceperm
+Grants permission to publish messages to topics that are in the stream.
+
+### Create a topic 
+```bash 
+maprcli stream topic create -path /sample-stream -topic events
+```
+
 
 ## Examples
 
@@ -36,13 +61,18 @@ The examples assume the following require forms:
           [clojure.core.async :refer [go <! >!]])
 ```
 
+MapR Streams
+;; topic = "sample-stream:fast-messages"
+
+
+
 ### Production
 
 ```clojure
 (let [p (client/producer {:bootstrap.servers "localhost:9092"}
                          (client/keyword-serializer)
                          (client/edn-serializer))]
-  (client/send! p "account" :account-a {:action :login}))
+  (client/send! p "account" "KEY" {:action :login}))
 
 ```
 
@@ -58,13 +88,13 @@ Async facade:
 ### Consumption
 
 ```clojure
-(let [c (client/consumer {:bootstrap.servers "localhost:9092"
-                          :group.id          "mygroup"}
+(let [c (client/consumer {:group.id          "mygroup"}
                          (client/keyword-deserializer)
                          (client/edn-deserializer))]
-  (client/subscribe! c "account")
-  (client/poll! c 100))
-
+  (client/subscribe! c "/sample-stream:events")
+  (while true
+    (let [records (client/poll! c 100)]
+      (println records))))
 ```
 
 Async facade:
