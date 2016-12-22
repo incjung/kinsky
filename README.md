@@ -19,7 +19,7 @@ Kinsky provides the following:
 ## Usage
 
 ```clojure
-
+[org.clojars.incjung/kinsky "0.1.15"]
 ```
 
 ## Documentation
@@ -64,18 +64,16 @@ The examples assume the following require forms:
 MapR Streams
 ;; topic = "sample-stream:fast-messages"
 
-
-
 ### Production
 
 ```clojure
-(let [p (client/producer {:bootstrap.servers "localhost:9092"}
-                         (client/keyword-serializer)
-                         (client/edn-serializer))]
-  (client/send! p "account" "KEY" {:action :login}))
+(let [p (client/producer {} :string :string)]
+    (client/send! p "/sample-stream:events" "IJUNG" "HELLO WORLD"))
 
+
+(let [p (client/producer {} :keyword :edn)]
+    (client/send! p "/sample-stream:events" :hello {:hello :world}))
 ```
-
 Async facade:
 
 ```clojure
@@ -88,13 +86,13 @@ Async facade:
 ### Consumption
 
 ```clojure
-(let [c (client/consumer {:group.id          "mygroup"}
-                         (client/keyword-deserializer)
-                         (client/edn-deserializer))]
-  (client/subscribe! c "/sample-stream:events")
-  (while true
-    (let [records (client/poll! c 100)]
-      (println records))))
+(defn receiving [] 
+  (let [c (client/consumer {:group.id "mygroup"} :keyword :edn)]
+    (client/subscribe! c ["/sample-stream:events"])
+    (while true
+      (println (client/poll! c 1000)))))
+
+(receiving)
 ```
 
 Async facade:

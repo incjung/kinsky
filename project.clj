@@ -1,4 +1,4 @@
-(defproject spootnik/kinsky "0.1.15"
+(defproject  org.clojars.incjung/kinsky "0.1.15"
   :description "MapR [Streams/Kafka] clojure client library"
   :plugins [[lein-codox "0.9.1"]]
   :url "https://github.com/incjung/kinsky"
@@ -13,4 +13,6 @@
                  [cheshire                       "5.6.3"]]
   :repositories [["java.net" "http://download.java.net/maven/2"]
                  ["mapr-releases" {:url "http://repository.mapr.com/maven"
-                                   :snapshots false}]])
+                                   :snapshots false}]]
+  :deploy-repositories {"clojars" {:url "https://clojars.org/repo"
+                                         :sign-releases false}})
