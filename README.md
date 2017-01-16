@@ -4,10 +4,12 @@ This is from [pyr/kinsky](http://https://github.com/pyr/kinsky)
 
 [![Build Status](https://secure.travis-ci.org/pyr/kinsky.png)](http://travis-ci.org/pyr/kinsky)
 
-Kinsky is a *somewhat* opinionated client library
-for [Mapr Stream Streams](http://maprdocs.mapr.com/51/MapR_Streams/mapr_streams.html) in Clojure.
+Kinsky is a somewhat opinionated client library for Apache Kafka in Clojure.
+But it doesn't support MapR Stream which is compatible with kafka 0.9.0.
 
-Kinsky provides the following:
+This project is forking from pyr/kinsky for [Mapr Stream Streams](http://maprdocs.mapr.com/51/MapR_Streams/mapr_streams.html) in Clojure.
+
+This project provides the following:
 
 - MapR Streams/Kakfa 0.9.0.x compatibility
 - Adequate data representation of Kafka types.
